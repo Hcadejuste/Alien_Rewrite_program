@@ -27,7 +27,7 @@ class Settings:
         self.bullet_w = 25
         self.bullet_h = 80
         self.bullet_amount = 5
-
+        self.alien_file = Path.cwd() /'image' / 'alien.bmp' 
        
         self.alien_w  = 40 #originally 80
         self.alien_h = 40
