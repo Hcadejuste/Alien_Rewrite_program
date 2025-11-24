@@ -14,8 +14,8 @@ class Settings:
     
 
         self.ship_file = Path.cwd()  / 'image' / 'ship.bmp'
-        self.ship_w = 70    #80      
-        self.ship_h = 95    #80  
+        self.ship_w = 70      
+        self.ship_h = 95     
         self.ship_speed = 5
         self.starting_ship_count = 3
 
@@ -29,9 +29,9 @@ class Settings:
         self.bullet_amount = 5
         self.alien_file = Path.cwd() /'image' / 'alien.bmp' 
        
-        self.alien_w  = 40 #originally 80
+        self.alien_w  = 40 
         self.alien_h = 40
-        self.fleet_speed = 2  #originally 5
+        self.fleet_speed = 2  
         self.fleet_direction = 1 
         self.fleet_drop_speed = 40
 
