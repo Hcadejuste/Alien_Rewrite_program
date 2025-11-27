@@ -20,11 +20,14 @@ class Ship(pygame.sprite.Sprite):
         )
         
         self.rect = self.image.get_rect()
-        self.rect.midbottom = self.boundaries.midbottom
+        self._center_ship()
         self.moving_right = False
         self.moving_left = False
-        self.x = float(self.rect.x)
         self.arsenal = arsenal
+
+    def _center_ship(self):
+        self.rect.midbottom = self.boundaries.midbottom
+        self.x = float(self.rect.x)
 
     def _center_ship(self):
         """Center the ship at the bottom of the screen."""
@@ -54,5 +57,11 @@ class Ship(pygame.sprite.Sprite):
     def fire(self):
         """Fires a bullet if the arsenal limit is not reached."""
         return self.arsenal.fire_bullet()
+       
+    def check_collisions(self, other_group): 
+        if pygame.sprite.spritecollideany(self, other_group):
+            self._center_ship()
+            return True
+        return False
 
     
