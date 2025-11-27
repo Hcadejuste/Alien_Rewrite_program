@@ -11,7 +11,7 @@ class Alien(Sprite):
         """Initialize the bullet and set its starting position."""
         super().__init__()
        
-       
+        self.fleet = fleet
         self.screen = fleet.screen
         self.settings = fleet.settings
         self.boundaries = fleet.screen.get_rect()
@@ -29,10 +29,11 @@ class Alien(Sprite):
 
     def update(self):
         temp_speed = self.settings.fleet_speed
-        if self.check_edges():
-            self.settings.fleet_direction *= -1
-            self.y += self.settings.fleet_drop_speed
-        self.x += temp_speed * self.settings.fleet_direction
+        #if self.check_edges():
+           # #self.settings.fleet_direction *= -1
+            #self.y += self.settings.fleet_drop_speed
+            
+        self.x += temp_speed * self.fleet.fleet_direction
         self.rect.x = self.x
         self.rect.y  = self.y
 

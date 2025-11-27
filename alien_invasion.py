@@ -47,7 +47,7 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while self.running:
             self._check_events()   
-            #self.alien.update()
+            self.alien_fleet.update_fleet()
            
             self.ship.update()
             self._update_screen()
