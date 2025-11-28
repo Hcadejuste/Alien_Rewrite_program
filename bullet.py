@@ -7,7 +7,11 @@ if TYPE_CHECKING:
 
 class Bullet(Sprite):
     def __init__(self, game: 'AlienInvasion'):
-        """Initialize the bullet and set its starting position."""
+        """Initialize a Bullet and set its starting position.
+
+        Args:
+            game (AlienInvasion): The main game object; provides screen and settings.
+        """
         super().__init__()
        
        

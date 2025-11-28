@@ -8,7 +8,13 @@ if TYPE_CHECKING:
 
 class Alien(Sprite):
     def __init__(self, fleet: 'AlienFleet', x: float, y: float):
-        """Initialize the bullet and set its starting position."""
+        """Initialize an Alien instance.
+
+        Args:
+            fleet (AlienFleet): The fleet this alien belongs to (provides screen/settings).
+            x (float): The x-coordinate where the alien will be placed.
+            y (float): The y-coordinate where the alien will be placed.
+        """
         super().__init__()
        
         self.fleet = fleet
@@ -28,6 +34,10 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
 
     def update(self):
+        """Move the alien horizontally and drop it if it hits screen edges.
+
+        The alien uses fleet settings to determine speed and direction.
+        """
         temp_speed = self.settings.fleet_speed
         #if self.check_edges():
            # #self.settings.fleet_direction *= -1
@@ -39,7 +49,9 @@ class Alien(Sprite):
 
 
     def check_edges(self): 
-        return (self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left)     
+        """Return True if the alien has reached either screen edge."""
+        return (self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left)
+
 
     def draw_alien(self):
         """Draws the bullet to the screen."""
