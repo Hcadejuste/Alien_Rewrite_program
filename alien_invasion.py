@@ -1,11 +1,12 @@
 import sys
 import pygame
 from setting import Settings
-
+from game_stat import GameStat
 from ship import Ship
 from arsenal import Arsenal
 from alien import Alien
 from alien_fleet_file import AlienFleet
+from time import sleep
 
 
 
@@ -15,6 +16,8 @@ class AlienInvasion:
         """Prepare the game, and create game resources."""
         pygame.init()
         self.settings = Settings()
+        # track game status (ships left, active state, etc.)
+        self.game_stat = GameStat(self.settings.starting_ship_count)
 
         self.screen = pygame.display.set_mode((self.settings.screen_w, self.settings.screen_h))
 
@@ -46,6 +49,7 @@ class AlienInvasion:
 
         self.alien_fleet= AlienFleet(self)
         self.alien_fleet.create_fleet()
+        self.game_active = True
 
         
 
@@ -55,11 +59,12 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while self.running:
-            self._check_events()   
-            self.alien_fleet.update_fleet()
-           
-            self.ship.update()
-            self._check_collisions()
+            self._check_events() 
+            if self.game_active:
+                self.alien_fleet.update_fleet()
+                self.ship.update()
+                self._check_collisions()
+
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
@@ -69,12 +74,13 @@ class AlienInvasion:
     def _check_collisions(self):
         # check collisins for ship
         if self.ship.check_collisions(self.alien_fleet.fleet):
-            self._reset_level()
+            self.check_games_status()
 
 
         # check collisions for aliens and bottom of the screen
         if self.alien_fleet.check_fleet_bottom():
-            self._reset_level
+            # call the handler to update ships/level when fleet reaches bottom
+            self.check_games_status()
 
 
 
@@ -92,10 +98,16 @@ class AlienInvasion:
 
 
            
+    def check_games_status(self):
+        # decrement remaining ships and reset level, or end game
+        if self.game_stat.ship_limit > 0:
+            self.game_stat.ship_limit -= 1
+            self._reset_level()
+            sleep(0.5)
+        else:
+            self.game_active = False
 
- 
-
-    def _reset_level(self):  
+    def _reset_level(self):
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
