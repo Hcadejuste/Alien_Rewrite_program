@@ -18,9 +18,13 @@ class AlienInvasion:
 
         Initializes pygame, loads settings and assets, sets up the
         display and sounds, and creates the player ship and alien fleet.
+
         """
         pygame.init()
         self.settings = Settings()
+
+
+        self.settings.initiallize_dynamic_settings()
         # track game status (ships left, active state, etc.)
         self.game_stat = GameStat(self.settings.starting_ship_count)
 
@@ -155,7 +159,7 @@ class AlienInvasion:
                 self.running = False
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN and self.game_active == True:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
