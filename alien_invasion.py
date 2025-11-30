@@ -24,9 +24,9 @@ class AlienInvasion:
         self.settings = Settings()
 
 
-        self.settings.initiallize_dynamic_settings()
+        self.settings.initialize_dynamic_settings()
         # track game status (ships left, active state, etc.)
-        self.game_stat = GameStat(self.settings.starting_ship_count)
+        self.game_stat = GameStat(self)
 
         self.screen = pygame.display.set_mode((self.settings.screen_w, self.settings.screen_h))
 
@@ -98,6 +98,10 @@ class AlienInvasion:
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self.check_games_status()
 
+        # reset the game stats
+        self.game_stat .reset_stats()
+
+
 
         # check collisions for aliens and bottom of the screen
         if self.alien_fleet.check_fleet_bottom():
@@ -114,9 +118,18 @@ class AlienInvasion:
         if collisions:
             self.impact.play()
             self.impact.fadeout(500)
+            self.game_stat.update(collisions)
 
         if self.alien_fleet.check_destroyed_status():
-            self._reset_level()    
+            self._reset_level()   
+            self.increase_difficulty()
+            
+            # update game status level
+
+            self.game_stats.update_level
+            # update HUD View
+
+
 
 
            
@@ -147,6 +160,11 @@ class AlienInvasion:
         self.screen.blit(self.bg, (0, 0))
         self.ship.draw()
         self.alien_fleet.draw()
+
+
+        # draw HUD
+
+
         # Draw the play button when the game is not active
         if not self.game_active:
             self.play_button.draw()
@@ -207,9 +225,36 @@ class AlienInvasion:
         """
         mouse_pos = pygame.mouse.get_pos()
         if not self.game_active and self.play_button.check_clicked(mouse_pos):
-            self.game_active = True
-            # Reset the fleet and ship for a new game
-            self._reset_level()
+            # Start a fresh game (reset stats, ship, bullets, and fleet)
+            self.restart_game()
+
+    def restart_game(self):
+        """Perform a full game restart and begin play.
+
+        This resets dynamic settings and game statistics, recenters the ship,
+        clears bullets and aliens, recreates the fleet, and sets the game
+        to active so the main loop begins updating objects.
+        """
+
+
+        self.settings.initialize_dynamic_settings()
+        # reset dynamic settings (speeds, counts)
+        self.settings.initialize_dynamic_settings()
+
+        # reset game stats (ships left, etc.)
+        # FIX: Pass 'self' (the AlienInvasion instance) instead of an integer
+        self.game_stat = GameStat(self) 
+
+        # reset ship and arsenals
+        self.ship._center_ship()
+        self.ship.arsenal.arsenal.empty()
+
+        # reset fleet
+        self.alien_fleet.fleet.empty()
+        self.alien_fleet.create_fleet()
+
+        # start the game
+        self.game_active = True
 
 if __name__ == '__main__':
     ai = AlienInvasion()

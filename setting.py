@@ -20,6 +20,9 @@ class Settings:
 
         self.difficulty_scale = 1.5
 
+
+        self.scores_file = Path.cwd()/'file'/'scores.json'
+
         self.bullet_file = Path.cwd()/ 'image' / 'laserBlast.png'
         self.laser_sound = Path.cwd() / 'sound' / 'laser.mp3'
         self.impact = Path.cwd() / 'sound' / 'impactSound.mp3'
@@ -49,6 +52,7 @@ class Settings:
         self.fleet_drop_speed = 40
         self.bullet_w = 25
         self.bullet_h = 80
+        self.alien_points = 50
 
     def increase_difficulty(self):
         self.ship_speed *= self.difficulty_scale    
