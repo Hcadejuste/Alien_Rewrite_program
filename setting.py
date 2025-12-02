@@ -10,12 +10,13 @@ class Settings:
         #frames per second
         self.FPS = 60
         
-        self.bg_file = Path.cwd() / 'image' / 'bakground_image.png'
+        self.bg_file = Path.cwd()/'image'/'Starbasesnow.png'
     
 
         self.ship_file = Path.cwd()  / 'image' / 'ship.bmp'
         self.ship_w = 70      
-        self.ship_h = 95     
+        self.ship_h = 95  
+        self.HUD_font_size = 15   
 
 
         self.difficulty_scale = 1.5
@@ -40,7 +41,7 @@ class Settings:
         self.button_color = (0, 135, 50)
         self.text_color = (255, 255, 255)
         self.button_font_size = 48
-        self.font_file = Path.cwd() / 'Roboto' / 'Roboto-Italic-VariableFont_wdth,wght.ttf'
+        self.font_file = Path.cwd()/'Roboto'/'Roboto-Italic-VariableFont_wdth,wght.ttf'
 
     def initialize_dynamic_settings(self):
         
