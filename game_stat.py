@@ -73,6 +73,7 @@ class GameStat():
     def _update_score(self, collisions):
         for alien in collisions.values():
             self.score += self.settings.alien_points
+            print(self.score)
 
     def _update_hi_score(self):
         if self.score > self.hi_score:

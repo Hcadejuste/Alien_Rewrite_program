@@ -97,7 +97,7 @@ class AlienInvasion:
             self.check_games_status()
 
         # reset the game stats
-        self.game_stat.reset_stats()
+       # self.game_stat.reset_stats()
 
 
 
@@ -117,7 +117,8 @@ class AlienInvasion:
             self.impact.play()
             self.impact.fadeout(500)
             self.game_stat.update(collisions)
-            self.HUD.update_scores()
+            # self.HUD.update_scores()
+            print(f"debug 4: {self.game_stat.score}")
 
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()   
@@ -163,7 +164,7 @@ class AlienInvasion:
         to active so the main loop begins updating objects.
         """
         self.settings.initialize_dynamic_settings() # Reset dynamic settings (speeds, counts)
-        self.game_stat = GameStat(self)             # Reset game stats (ships left, etc.)
+        self.game_stat.reset_stats()            # Reset game stats (ships left, etc.)
         self.HUD.update_scores()                    # Update HUD to reflect reset stats
 
         self.ship._center_ship()                    # Reset ship position
@@ -184,7 +185,9 @@ class AlienInvasion:
         self.alien_fleet.draw()
 
 
+
         #draw HUD
+        print(f'debug 2: {self.game_stat.score}')
         self.HUD.draw()
 
 

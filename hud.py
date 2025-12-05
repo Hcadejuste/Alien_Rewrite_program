@@ -21,9 +21,11 @@ class HUD:
         self._update_max_score()
         self._update_score()
         self._update_hi_score()
+    
 
     def _update_score(self):
-        score_str = f'Score: {self.game_stats.score: ,.0f}'    
+        print(f"debug 3: {self.game_stats.score}")
+        score_str = f'Score: {self.game_stats.score:,}'    
         self.score_image = self.font.render(score_str, True, self.settings.text_color, None)
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.boundaries.right - self.padding
